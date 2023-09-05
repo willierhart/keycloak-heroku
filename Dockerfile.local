@@ -33,5 +33,5 @@ COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
 # https://www.keycloak.org/server/logging
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--hostname-strict=false", "--features=\"preview,scripts\"", "--log-level=TRACE"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--hostname-strict=false", "--features=\"preview,scripts\"", "--log-level=INFO"]
 
