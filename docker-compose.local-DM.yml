@@ -4,12 +4,12 @@ services:
   keycloak:
     build:
       context: .
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile.keycloak
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       PORT: 8080
-      KC_DB: mysql
+      KC_DB: dm
       KC_DB_URL: "jdbc:dm://dm8:5236/keycloak"
       KC_DB_DRIVER: dm.jdbc.driver.DmDriver
       KC_DB_USERNAME: postgres

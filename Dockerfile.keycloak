@@ -1,0 +1,18 @@
+ARG KEYCLOAK_VERSION=22.0.1
+
+FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
+COPY tweaks/Dm8JdbcDriver18-8.1.0.157.jar \
+    /opt/keycloak/providers/
+
+ENV KC_HOSTNAME_STRICT=false
+ENV KC_HOSTNAME_STRICT_HTTPS=false
+ENV KC_HTTP_ENABLED=true
+
+USER 1000
+
+RUN /opt/keycloak/bin/kc.sh build --health-enabled=true
+
+WORKDIR /opt/keycloak
+
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--hostname-strict=false", "--features=\"preview,scripts\"", "--log-level=INFO"]
+
