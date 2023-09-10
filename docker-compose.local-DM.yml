@@ -9,8 +9,9 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       PORT: 8080
-      KC_DB: postgres
-      KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
+      KC_DB: mysql
+      KC_DB_URL: "jdbc:dm://dm8:5236/keycloak"
+      KC_DB_DRIVER: dm.jdbc.driver.DmDriver
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: nopwd
     ports:
@@ -19,22 +20,23 @@ services:
     volumes:
       - ~/.m2/repository:/root/.m2/repository
 
-  postgres:
-    image: "postgres"
+  dm8:
+    image: "dm8_single:dm8_20230808_rev197096_x86_rh6_64"
     ports:
-      - "5432:5432"
+      - "5236:5236"
     environment:
+      LD_LIBRARY_PATH: /opt/dmdbms/bin 
+      EXTENT_SIZE: 32
+      BLANK_PAD_MODE: 1
+      LOG_SIZE: 1024
+      UNICODE_FLAG: 1
+      LENGTH_IN_CHAR: 1
+      INSTANCE_NAME: dm8_single
       POSTGRES_DB: keycloak
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: nopwd
     volumes:
-      - pg1:/var/lib/postgresql/data
-
-  adminer:
-    image: library/adminer:latest
-    restart: always
-    ports:
-      - "7777:8080"
+    - data:/opt/dmdbms/data
 
 volumes:
-  pg1: ~
+  data: ~
