@@ -1,4 +1,4 @@
-ARG KEYCLOAK_VERSION=22.0.1
+ARG KEYCLOAK_VERSION=21.0.1
 
 FROM docker.io/library/keycloak-builder as mvn_builder
 
@@ -20,6 +20,11 @@ COPY idps/wecom/templates/realm-identity-provider-wechat-work-ext.html \
 #COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
 #COPY  ui/theme.properties /opt/keycloak/themes/keycloak/login/
 
+COPY idps/phone/keycloak-phone-provider.jar /opt/keycloak/providers/
+COPY idps/phone/keycloak-phone-provider.resources.jar /opt/keycloak/providers/
+COPY idps/phone/keycloak-sms-provider-aliyun.jar /opt/keycloak/providers/
+
+
 ENV KC_HOSTNAME_STRICT=false
 ENV KC_HOSTNAME_STRICT_HTTPS=false
 ENV KC_HTTP_ENABLED=true
@@ -33,5 +38,5 @@ COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
 # https://www.keycloak.org/server/logging
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--hostname-strict=false", "--features=\"preview,scripts\"", "--log-level=INFO"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--spi-phone-default-service=aliyun", "--spi-message-sender-service-aliyun-region=cn-hangzhou", "--spi-message-sender-service-aliyun-key=LTAIGf3cPKqmwZVd", "--spi-message-sender-service-aliyun-secret=e6usUCjyPTUenAR8T8VKj018EX0Iwd", "--spi-message-sender-service-aliyun-auth-template=SMS_136861653", "--hostname-strict=false", "--features=\"preview,scripts\"", "--log-level=INFO"]
 
