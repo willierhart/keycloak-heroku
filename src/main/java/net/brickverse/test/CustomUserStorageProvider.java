@@ -6,6 +6,7 @@ import org.keycloak.credential.CredentialInput;
 import org.keycloak.credential.CredentialInputValidator;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
+import org.keycloak.models.SubjectCredentialManager;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.credential.PasswordCredentialModel;
 import org.keycloak.storage.StorageId;
@@ -18,8 +19,8 @@ import java.util.*;
 public class CustomUserStorageProvider implements UserStorageProvider, CredentialInputValidator, UserLookupProvider {
     private static final Logger logger = Logger.getLogger(CustomUserStorageProvider.class);
 
-    private KeycloakSession session;
-    private ComponentModel model;
+    private final KeycloakSession session;
+    private final ComponentModel model;
     protected Properties properties;
 
     /**
@@ -78,7 +79,6 @@ public class CustomUserStorageProvider implements UserStorageProvider, Credentia
     /**
      * 通过用户名查询用户
      */
-    @Override
     public UserModel getUserByUsername(String username, RealmModel realm) {
         UserModel adapter = loadedUsers.get(username);
         if (adapter == null) {
@@ -92,8 +92,20 @@ public class CustomUserStorageProvider implements UserStorageProvider, Credentia
     }
 
     @Override
+    public UserModel getUserById(RealmModel realm, String id) {
+        StorageId storageId = new StorageId(id);
+        String username = storageId.getExternalId();
+        return getUserByUsername(username, realm);
+    }
+
+    @Override
     public UserModel getUserByUsername(RealmModel realm, String username) {
         return this.getUserByUsername(username, realm);
+    }
+
+    @Override
+    public UserModel getUserByEmail(RealmModel realmModel, String s) {
+        return null;
     }
 
     /**
@@ -105,13 +117,17 @@ public class CustomUserStorageProvider implements UserStorageProvider, Credentia
             public String getUsername() {
                 return username;
             }
+
+            @Override
+            public SubjectCredentialManager credentialManager() {
+                return null;
+            }
         };
     }
 
     /**
      * 通过用户ID查询用户
      */
-    @Override
     public UserModel getUserById(String id, RealmModel realm) {
         StorageId storageId = new StorageId(id);
         String username = storageId.getExternalId();
@@ -121,7 +137,6 @@ public class CustomUserStorageProvider implements UserStorageProvider, Credentia
     /**
      * 通过邮箱查查询用户
      */
-    @Override
     public UserModel getUserByEmail(String email, RealmModel realm) {
         return null;
     }
