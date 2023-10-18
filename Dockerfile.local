@@ -1,4 +1,4 @@
-ARG KEYCLOAK_VERSION=21.0.1
+ARG KEYCLOAK_VERSION=22.0.1
 
 FROM docker.io/library/keycloak-builder as mvn_builder
 
@@ -20,9 +20,9 @@ COPY idps/wecom/templates/realm-identity-provider-wechat-work-ext.html \
 #COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
 #COPY  ui/theme.properties /opt/keycloak/themes/keycloak/login/
 
-COPY idps/phone/keycloak-phone-provider.jar /opt/keycloak/providers/
-COPY idps/phone/keycloak-phone-provider.resources.jar /opt/keycloak/providers/
-COPY idps/phone/keycloak-sms-provider-aliyun.jar /opt/keycloak/providers/
+COPY idps/phone/keycloak-phone-provider-2.3.6.jar /opt/keycloak/providers/
+COPY idps/phone/keycloak-phone-provider.resources-2.3.6.jar /opt/keycloak/providers/
+COPY idps/phone/keycloak-sms-provider-aliyun-2.3.6.jar /opt/keycloak/providers/
 
 
 ENV KC_HOSTNAME_STRICT=false
