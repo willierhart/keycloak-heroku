@@ -32,13 +32,13 @@
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-server-spi</artifactId>
             <scope>provided</scope>
-            <version>21.1.2</version>
+            <version>22.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-server-spi-private</artifactId>
             <scope>provided</scope>
-            <version>21.1.2</version>
+            <version>22.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
