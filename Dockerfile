@@ -3,8 +3,8 @@ ARG KEYCLOAK_VERSION=22.0.1
 FROM docker.io/jefftian/keycloak-builder as mvn_builder
 
 FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
-COPY --from=mvn_builder /tmp/target/*.jar /opt/keycloak/providers/
-COPY --from=mvn_builder /tmp/target/*.jar /opt/keycloak/deployments/
+#COPY --from=mvn_builder /tmp/target/*.jar /opt/keycloak/providers/
+#COPY --from=mvn_builder /tmp/target/*.jar /opt/keycloak/deployments/
 
 COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
     /opt/keycloak/providers/
