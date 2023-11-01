@@ -1,4 +1,4 @@
-ARG KEYCLOAK_VERSION=22.0.1
+ARG KEYCLOAK_VERSION=22.0.5
 
 FROM docker.io/jefftian/keycloak-builder as mvn_builder
 
