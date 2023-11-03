@@ -9,13 +9,8 @@ FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
 COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
     /opt/keycloak/providers/
 
-COPY idps/wecom/keycloak-services-social-wechat-work.jar \
+COPY idps/wecom/keycloak-services-social-wechat-work-1.jar \
     /opt/keycloak/providers/
-COPY idps/wecom/templates/realm-identity-provider-wechat-work.html \
-    /opt/keycloak/themes/base/admin/resources/partials
-COPY idps/wecom/templates/realm-identity-provider-wechat-work-ext.html \
-    /opt/keycloak/themes/base/admin/resources/partials
-
 
 #COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
 #COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
