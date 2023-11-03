@@ -9,7 +9,7 @@ FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
 COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
     /opt/keycloak/providers/
 
-COPY idps/wecom/keycloak-services-social-wechat-work-1.jar \
+COPY idps/wecom/keycloak-services-social-wechat-work.jar \
     /opt/keycloak/providers/
 
 #COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
