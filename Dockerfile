@@ -1,6 +1,8 @@
 ARG KEYCLOAK_VERSION=22.0.5
 
-FROM docker.io/jefftian/keycloak-builder as mvn_builder
+FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
+COPY . /tmp
+RUN cd /tmp && mvn clean install
 
 FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
 #COPY --from=mvn_builder /tmp/target/*.jar /opt/keycloak/providers/
