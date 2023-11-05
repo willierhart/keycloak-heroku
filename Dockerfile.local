@@ -33,6 +33,8 @@ FROM quay.io/keycloak/keycloak:$KEYCLOAK_VERSION
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
+ENV KC_PROXY_ADDRESS_FORWARDING=true
+
 # https://www.keycloak.org/server/logging
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--spi-phone-default-service=aliyun", "--spi-message-sender-service-aliyun-region=cn-hangzhou", "--spi-message-sender-service-aliyun-key=*", "--spi-message-sender-service-aliyun-secret=*", "--spi-message-sender-service-aliyun-auth-template=*", "--hostname-strict=false", "--features=\"preview,scripts\"", "--log-level=INFO"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--spi-phone-default-service=aliyun", "--spi-message-sender-service-aliyun-region=cn-hangzhou", "--spi-message-sender-service-aliyun-key=*", "--spi-message-sender-service-aliyun-secret=*", "--spi-message-sender-service-aliyun-auth-template=*", "--hostname-strict=false", "--proxy=edge", "--features=\"preview,scripts\"", "--log-level=DEBUG"]
 
