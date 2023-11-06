@@ -3,10 +3,6 @@ FROM quay.io/keycloak/keycloak:22.0.5
 COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
     /opt/keycloak/providers/
 
-COPY idps/wecom/keycloak-services-social-wechat-work.jar \
-    /opt/keycloak/providers/
-
-
 #COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
 #COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
 #COPY  ui/theme.properties /opt/keycloak/themes/keycloak/login/

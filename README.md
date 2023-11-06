@@ -65,8 +65,10 @@ docker compose -f docker-compose.heroku.yml up --build
 在本地用 h2 数据库模拟部署到 heroku 的版本：
 
 ```shell
-mvn clean install
-docker compose -f docker-compose.local.yml up --build
+# The following token was restricted to be only able to pull
+# Jeff Tian's GitHub Packages, so it's OK to be public and included
+# in the source code
+GH_TOKEN=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 docker compose -f docker-compose.local.yml up --build
 open http://localhost:8080/
 ```
 

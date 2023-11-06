@@ -79,6 +79,11 @@
             <artifactId>keycloak-model-legacy</artifactId>
             <version>22.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-services-social-wechat-work</artifactId>
+            <version>22.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -113,4 +118,14 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <!-- id必须唯一 -->
+            <id>github</id>
+            <!-- 见名知意即可 -->
+            <name>github repository</name>
+            <!-- 仓库的url地址 -->
+            <url>https://maven.pkg.github.com/jeff-tian/*</url>
+        </repository>
+    </repositories>
 </project>

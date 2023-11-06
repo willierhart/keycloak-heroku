@@ -1,15 +1,22 @@
 ARG KEYCLOAK_VERSION=22.0.1
 
-FROM docker.io/jefftian/keycloak-builder as mvn_builder
+FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
+
+ARG GH_TOKEN
+ENV GH_TOKEN=$GH_TOKEN
+
+RUN mkdir -p /root/.m2
+COPY settings.xml /root/.m2/settings.xml
+
+RUN mkdir -p /opt/keycloak
+COPY . /opt/keycloak
+RUN cd /opt/keycloak && mvn install -s /root/.m2/settings.xml
 
 FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
 COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/providers/
 COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/deployments/
 
 COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
-    /opt/keycloak/providers/
-
-COPY idps/wecom/keycloak-services-social-wechat-work.jar \
     /opt/keycloak/providers/
 
 #COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
@@ -36,5 +43,5 @@ WORKDIR /opt/keycloak
 ENV KC_PROXY_ADDRESS_FORWARDING=true
 
 # https://www.keycloak.org/server/logging
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--spi-phone-default-service=aliyun", "--spi-message-sender-service-aliyun-region=cn-hangzhou", "--spi-message-sender-service-aliyun-key=*", "--spi-message-sender-service-aliyun-secret=*", "--spi-message-sender-service-aliyun-auth-template=*", "--hostname-strict=false", "--proxy=edge", "--features=\"preview,scripts\"", "--log-level=DEBUG"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--spi-phone-default-service=aliyun", "--spi-message-sender-service-aliyun-region=cn-hangzhou", "--spi-message-sender-service-aliyun-key=*", "--spi-message-sender-service-aliyun-secret=*", "--spi-message-sender-service-aliyun-auth-template=*", "--hostname-strict=false", "--proxy=edge", "--features=\"preview,scripts\"", "--log-level=INFO"]
 
