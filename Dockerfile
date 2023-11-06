@@ -2,7 +2,7 @@ ARG KEYCLOAK_VERSION=22.0.5
 ARG GH_TOKEN
 
 FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
-ENV GH_TOKEN=$GH_TOKEN
+ENV GH_TOKEN=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
 RUN mkdir -p /root/.m2
 COPY settings.xml /root/.m2/settings.xml
 
