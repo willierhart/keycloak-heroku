@@ -18,9 +18,6 @@ FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
 COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/providers/
 COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/deployments/
 
-COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
-    /opt/keycloak/providers/
-
 #COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
 #COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
 #COPY  ui/theme.properties /opt/keycloak/themes/keycloak/login/
