@@ -91,8 +91,8 @@
         </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-services-social-dingtalk</artifactId>
-            <version>22.0.3</version>
+            <artifactId>keycloak-services-social-dingding</artifactId>
+            <version>22.0.4</version>
         </dependency>
     </dependencies>
 
