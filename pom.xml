@@ -90,10 +90,25 @@
             <version>0.5.6</version>
         </dependency>
         <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-services-social-dingding</artifactId>
-            <version>22.0.6</version>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-phone-provider</artifactId>
+            <version>2.3.6</version>
         </dependency>
+        <dependency>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-phone-provider.resources</artifactId>
+            <version>2.3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-sms-provider-aliyun</artifactId>
+            <version>2.3.6</version>
+        </dependency>
+        <dependency>
+        <groupId>org.keycloak</groupId>
+        <artifactId>keycloak-services-social-dingding</artifactId>
+        <version>22.0.9</version>
+    </dependency>
     </dependencies>
 
     <build>
