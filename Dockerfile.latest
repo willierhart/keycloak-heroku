@@ -1,28 +1,14 @@
-FROM quay.io/keycloak/keycloak:latest
-
-COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
-    /opt/keycloak/providers/
-
-COPY idps/wecom/keycloak-services-social-wechat-work.jar \
-    /opt/keycloak/providers/
-COPY idps/wecom/templates/realm-identity-provider-wechat-work.html \
-    /opt/keycloak/themes/base/admin/resources/partials
-COPY idps/wecom/templates/realm-identity-provider-wechat-work-ext.html \
-    /opt/keycloak/themes/base/admin/resources/partials
-
+FROM quay.io/keycloak/keycloak:22.0.6
 
 #COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
 #COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
 #COPY  ui/theme.properties /opt/keycloak/themes/keycloak/login/
-COPY  target/keycloak-justauth-12.0.1-jar-with-dependencies.jar /opt/keycloak/providers/
-
-COPY  target/keycloak-justauth-12.0.1-jar-with-dependencies.jar /opt/keycloak/deployments/
 
 ENV KC_HOSTNAME_STRICT=false
-ENV KC_HOSTNAME_STRICT_HTTPS=false
+ENV KC_HOSTNAME_STRICT_HTTPS=true
 ENV KC_HTTP_ENABLED=true
 ENV PROXY_ADDRESS_FORWARDING=true
 ENV FRONTEND_URL=https://keycloak-jeff-tian.cloud.okteto.net
 ENV KC_HOSTNAME_URL=https://keycloak-jeff-tian.cloud.okteto.net
 
-CMD ["start", "--proxy=passthrough", "--db=postgres", "--db-url=$DB_URL", "--db-username=$DB_USERNAME", "--db-password=$DB_PASSWORD", "--features=\"preview,scripts\""]
+CMD ["start", "--proxy=edge", "--db=postgres", "--db-url=$DB_URL", "--db-username=$DB_USERNAME", "--db-password=$DB_PASSWORD", "--features=\"preview,scripts\"", "--log-level=INFO"]
