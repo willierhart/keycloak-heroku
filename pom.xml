@@ -14,7 +14,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <keycloak.version>22.0.1</keycloak.version>
+        <keycloak.version>23.0.0</keycloak.version>
     </properties>
 
     <dependencies>
