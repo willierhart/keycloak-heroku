@@ -1,23 +1,22 @@
-ARG KEYCLOAK_VERSION=22.0.1
+ARG KEYCLOAK_VERSION=22.0.5
 
-FROM docker.io/maven:3.8.6-jdk-11 as mvn_builder
-COPY . /tmp
-RUN cd /tmp && mvn clean install
+FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
+
+# The following token was restricted to be only able to pull
+# Jeff Tian's GitHub Packages, so it's OK to be public and included
+# in the source code
+ENV GH_TOKEN_BASE64=Z2hwXzFaNm5tRWQzTFFuY1RUV3hZSVdlZTNLMjBTY2xXdjNoUkk5Nwo
+
+RUN mkdir -p /root/.m2
+COPY settings.xml /root/.m2/settings.xml
+
+RUN mkdir -p /opt/keycloak
+COPY . /opt/keycloak
+RUN cd /opt/keycloak && GH_TOKEN=$(echo $GH_TOKEN_BASE64 | base64 --decode) mvn install -s /root/.m2/settings.xml
 
 FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
-COPY --from=mvn_builder /tmp/target/*.jar /opt/keycloak/providers/
-COPY --from=mvn_builder /tmp/target/*.jar /opt/keycloak/deployments/
-
-COPY idps/wechat-mobile/keycloak-services-social-weixin.jar \
-    /opt/keycloak/providers/
-
-COPY idps/wecom/keycloak-services-social-wechat-work.jar \
-    /opt/keycloak/providers/
-COPY idps/wecom/templates/realm-identity-provider-wechat-work.html \
-    /opt/keycloak/themes/base/admin/resources/partials
-COPY idps/wecom/templates/realm-identity-provider-wechat-work-ext.html \
-    /opt/keycloak/themes/base/admin/resources/partials
-
+COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/providers/
+COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/deployments/
 
 #COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
 #COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont

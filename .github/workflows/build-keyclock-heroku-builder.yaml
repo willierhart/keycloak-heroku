@@ -1,0 +1,13 @@
+name: Build a keycloak-heroku mvn builder
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build-keycloak-heroku-builder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u "${{secrets.DOCKER_USERNAME}}" --password-stdin
+      - run: git_hash=$(git rev-parse ${{ github.sha }})
+      - run: sh .github/mvn-builder.sh ${{ github.sha }} ${{ secrets.GH_TOKEN }}
