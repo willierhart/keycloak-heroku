@@ -28,8 +28,8 @@ Dyno，从而不需要付费，免费拥有一个 Keycloak 实例。
 - Heroku:
     - https://keycloak.jiwai.win （使用 Cloudflare DNS）
     - https://unisso.herokuapp.com/ （Heroku 默认）
-- Okteto:
-    - https://keycloak-jeff-tian.cloud.okteto.net/
+- ~~Okteto~~ （Okteto 从 2024 年 1 月 15 日起不再免费，资源已经被释放）:
+    - ~~https://keycloak-jeff-tian.cloud.okteto.net/~~
 
 ### 注意 ⚠️
 
