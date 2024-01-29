@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-services-social-weixin</artifactId>
-            <version>0.5.12</version>
+            <version>0.5.13</version>
         </dependency>
 
         <dependency>
