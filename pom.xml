@@ -105,6 +105,11 @@
             <artifactId>keycloak-sms-provider-aliyun</artifactId>
             <version>2.3.6</version>
         </dependency>
+        <dependency>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-sms-provider-dummy</artifactId>
+            <version>2.3.6</version>
+        </dependency>
     </dependencies>
 
     <build>
