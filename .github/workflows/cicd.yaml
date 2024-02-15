@@ -40,7 +40,7 @@ jobs:
       - run: npm i -g k8ss
       - run: echo -e "machine github.com\n  login ${{secrets.GH_TOKEN}}" > ~/.netrc
       - run: git clone https://github.com/Jeff-Tian/k8s-config.git ${HOME}/k8s-config
-      - run: k8ss switch --cluster=okteto --namespace=jeff-tian
-      - run: sops -d k8s/secrets.yaml --aws-profile lambda-doc-rotary | kubectl apply -f -
-      - run: kubectl apply -k k8s
-      - run: kubectl set image deployment keycloak keycloak=jefftian/keycloak:${{ github.sha }}
+#      - run: k8ss switch --cluster=okteto --namespace=jeff-tian
+#      - run: sops -d k8s/secrets.yaml --aws-profile lambda-doc-rotary | kubectl apply -f -
+#      - run: kubectl apply -k k8s
+#      - run: kubectl set image deployment keycloak keycloak=jefftian/keycloak:${{ github.sha }}
