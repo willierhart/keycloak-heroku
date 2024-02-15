@@ -1,4 +1,4 @@
-ARG KEYCLOAK_VERSION=21.0.1
+ARG KEYCLOAK_VERSION=22.0.5
 
 FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
 
@@ -15,15 +15,6 @@ RUN cd /opt/keycloak && mvn clean install -s /root/.m2/settings.xml
 FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
 COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/providers/
 COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/deployments/
-
-#COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
-#COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
-#COPY  ui/theme.properties /opt/keycloak/themes/keycloak/login/
-
-COPY idps/phone/keycloak-phone-provider.jar /opt/keycloak/providers/
-COPY idps/phone/keycloak-phone-provider.resources.jar /opt/keycloak/providers/
-COPY idps/phone/keycloak-sms-provider-aliyun.jar /opt/keycloak/providers/
-
 
 ENV KC_HOSTNAME_STRICT=false
 ENV KC_HOSTNAME_STRICT_HTTPS=false
