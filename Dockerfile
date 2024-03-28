@@ -29,13 +29,11 @@ COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
 ENV JAVA_OPTS="-Xms64m -Xmx300m"
-ENV KEYCLOAK_ADMIN=$KEYCLOAK_USER
-ENV KEYCLOAK_ADMIN_PASSWORD=$KEYCLOAK_PASSWORD
 
 # 使用 ENTRYPOINT 指定启动脚本
 ENTRYPOINT ["/opt/keycloak/entrypoint.sh"]
 
 # 创建启动脚本 entrypoint.sh
 RUN echo '#!/bin/sh' > /opt/keycloak/entrypoint.sh \
-    && echo '/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-port=$PORT --proxy=edge --db=postgres --db-url=$DB_URL --db-username=$DB_USERNAME --db-password=$DB_PASSWORD --spi-phone-default-service=dummy --spi-phone-default-duplicate-phone=false --verbose' >> /opt/keycloak/entrypoint.sh \
+    && echo 'KEYCLOAK_ADMIN=$KEYCLOAK_USER KEYCLOAK_ADMIN_PASSWORD=$KEYCLOAK_PASSWORD /opt/keycloak/bin/kc.sh start --hostname-strict=false --http-port=$PORT --proxy=edge --db=postgres --db-url=$DB_URL --db-username=$DB_USERNAME --db-password=$DB_PASSWORD --spi-phone-default-service=dummy --spi-phone-default-duplicate-phone=false --verbose' >> /opt/keycloak/entrypoint.sh \
     && chmod +x /opt/keycloak/entrypoint.sh
