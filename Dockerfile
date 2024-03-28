@@ -28,6 +28,8 @@ FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
+ENV JAVA_OPTS="-Xms64m -Xmx300m"
+
 CMD ["start", "--hostname-strict=false", "--http-port=$PORT", "--proxy=edge", "--db=postgres", "--db-url=$DB_URL", "--db-username=$DB_USERNAME", "--db-password=$DB_PASSWORD", "--spi-phone-default-service=dummy", "--spi-phone-default-duplicate-phone=false"]
 
 
