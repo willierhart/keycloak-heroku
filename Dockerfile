@@ -29,6 +29,8 @@ COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
 ENV JAVA_OPTS="-Xms64m -Xmx300m"
+ENV KEYCLOAK_ADMIN=$KEYCLOAK_USER
+ENV KEYCLOAK_ADMIN_PASSWORD=$KEYCLOAK_PASSWORD
 
 # 使用 ENTRYPOINT 指定启动脚本
 ENTRYPOINT ["/opt/keycloak/entrypoint.sh"]
