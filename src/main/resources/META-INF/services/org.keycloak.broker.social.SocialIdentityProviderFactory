@@ -1,2 +1,2 @@
-org.keycloak.social.dingding.DingDingIdentityProviderFactory
+#org.keycloak.social.dingding.DingDingIdentityProviderFactory
 org.keycloak.social.wechat.WechatWorkIdentityProviderFactory

@@ -1,4 +1,4 @@
-ARG KEYCLOAK_VERSION=22.0.5
+ARG KEYCLOAK_VERSION=24.0.0
 
 FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
 
@@ -31,5 +31,5 @@ WORKDIR /opt/keycloak
 ENV KC_PROXY_ADDRESS_FORWARDING=true
 
 # https://www.keycloak.org/server/logging
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--spi-phone-default-service=aliyun", "--spi-message-sender-service-aliyun-region=cn-hangzhou", "--spi-message-sender-service-aliyun-key=*", "--spi-message-sender-service-aliyun-secret=*", "--spi-message-sender-service-aliyun-auth-template=*", "--hostname-strict=false", "--proxy=edge", "--features=\"preview,scripts\"", "--log-level=INFO"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--spi-phone-default-service=aliyun", "--spi-message-sender-service-aliyun-region=cn-hangzhou", "--spi-message-sender-service-aliyun-key=*", "--spi-message-sender-service-aliyun-secret=*", "--spi-message-sender-service-aliyun-auth-template=*", "--hostname-strict=false", "--proxy=edge", "--log-level=INFO"]
 

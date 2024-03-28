@@ -1,14 +1,8 @@
-FROM quay.io/keycloak/keycloak:22.0.6
-
-#COPY  temp/* /opt/keycloak/themes/base/admin/resources/partials
-#COPY  ui/font_iconfont /opt/keycloak/themes/keycloak/common/resources/lib/font_iconfont
-#COPY  ui/theme.properties /opt/keycloak/themes/keycloak/login/
+FROM quay.io/keycloak/keycloak:24.0.0
 
 ENV KC_HOSTNAME_STRICT=false
 ENV KC_HOSTNAME_STRICT_HTTPS=true
 ENV KC_HTTP_ENABLED=true
 ENV PROXY_ADDRESS_FORWARDING=true
-ENV FRONTEND_URL=https://keycloak-jeff-tian.cloud.okteto.net
-ENV KC_HOSTNAME_URL=https://keycloak-jeff-tian.cloud.okteto.net
 
-CMD ["start", "--proxy=edge", "--db=postgres", "--db-url=$DB_URL", "--db-username=$DB_USERNAME", "--db-password=$DB_PASSWORD", "--features=\"preview,scripts\"", "--log-level=INFO"]
+CMD ["start", "--proxy=edge", "--log-level=INFO"]

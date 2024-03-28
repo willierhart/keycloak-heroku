@@ -6,10 +6,6 @@ services:
         context: .
         dockerfile: Dockerfile.local
         args:
-          # The following token was restricted to be only able to pull
-          # Jeff Tian's GitHub Packages, so it's OK to be public and included
-          # in the source code
-          # GH_TOKEN: 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
           GH_TOKEN: $GH_TOKEN
       environment:
         KEYCLOAK_ADMIN: admin
