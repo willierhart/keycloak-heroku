@@ -35,5 +35,5 @@ ENTRYPOINT ["/opt/keycloak/entrypoint.sh"]
 
 # 创建启动脚本 entrypoint.sh
 RUN echo '#!/bin/sh' > /opt/keycloak/entrypoint.sh \
-    && echo '/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-port=$PORT --proxy=edge --db=postgres --db-url=$DB_URL --db-username=$DB_USERNAME --db-password=$DB_PASSWORD --spi-phone-default-service=dummy --spi-phone-default-duplicate-phone=false' >> /opt/keycloak/entrypoint.sh \
+    && echo '/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-port=$PORT --proxy=edge --db=postgres --db-url=$DB_URL --db-username=$DB_USERNAME --db-password=$DB_PASSWORD --spi-phone-default-service=dummy --spi-phone-default-duplicate-phone=false --verbose' >> /opt/keycloak/entrypoint.sh \
     && chmod +x /opt/keycloak/entrypoint.sh
