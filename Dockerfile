@@ -1,11 +1,11 @@
-ARG KEYCLOAK_VERSION=22.0.5
+ARG KEYCLOAK_VERSION=24.0.0
 
 FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
 
 # The following token was restricted to be only able to pull
 # Jeff Tian's GitHub Packages, so it's OK to be public and included
 # in the source code
-ENV GH_TOKEN_BASE64=Z2hwXzFaNm5tRWQzTFFuY1RUV3hZSVdlZTNLMjBTY2xXdjNoUkk5Nwo
+ENV GH_TOKEN_BASE64="Z2hwX0Z1VEpidGtVVUJJbWdhbm1KSFRENTdDOGRTTkJIcjE4WmhqOQo="
 
 RUN mkdir -p /root/.m2
 COPY settings.xml /root/.m2/settings.xml
@@ -28,6 +28,6 @@ FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
-CMD ["start-dev", "--hostname-strict=false", "--http-port=$PORT", "--proxy=edge", "--db=postgres", "--db-url=$DB_URL", "--db-username=$DB_USERNAME", "--db-password=$DB_PASSWORD", "--features=\"preview,scripts\"", "--spi-phone-default-service=dummy", "--spi-phone-default-duplicate-phone=false"]
+CMD ["start-dev", "--hostname-strict=false", "--http-port=$PORT", "--proxy=edge", "--db=postgres", "--db-url=$DB_URL", "--db-username=$DB_USERNAME", "--db-password=$DB_PASSWORD", "--spi-phone-default-service=dummy", "--spi-phone-default-duplicate-phone=false"]
 
 
