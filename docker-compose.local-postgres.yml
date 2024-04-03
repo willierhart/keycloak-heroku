@@ -5,14 +5,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.local
+      args:
+        GH_TOKEN: $GH_TOKEN
+        MAVEN_OPTS: $MAVEN_OPTS
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       PORT: 8080
       KC_DB: postgres
-      KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
+      KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak2"
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: nopwd
+    mem_limit: 3g
     ports:
       - "8080:8080"
       - "9990:9990"
@@ -24,11 +28,12 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: keycloak
+      POSTGRES_DB: keycloak2
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: nopwd
     volumes:
       - pg1:/var/lib/postgresql/data
+      - ~/Downloads:/host_downloads  # 这是添加的挂载点
 
   adminer:
     image: library/adminer:latest

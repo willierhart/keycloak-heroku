@@ -28,8 +28,6 @@ FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
-ENV JAVA_OPTS="-Xms64m -Xmx300m"
-
 # 使用 ENTRYPOINT 指定启动脚本
 ENTRYPOINT ["/opt/keycloak/entrypoint.sh"]
 

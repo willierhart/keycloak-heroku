@@ -5,12 +5,15 @@ FROM docker.io/maven:3.8.7-openjdk-18 as mvn_builder
 ARG GH_TOKEN
 ENV GH_TOKEN=$GH_TOKEN
 
+ARG MAVEN_OPTS="-Xmx2048m"
+ENV MAVEN_OPTS=$MAVEN_OPTS
+
 RUN mkdir -p /root/.m2
 COPY settings.xml /root/.m2/settings.xml
 
 RUN mkdir -p /opt/keycloak
 COPY . /opt/keycloak
-RUN cd /opt/keycloak && mvn clean install -s /root/.m2/settings.xml
+RUN cd /opt/keycloak && MAVEN_OPTS=$MAVEN_OPTS mvn clean install -s /root/.m2/settings.xml
 
 FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION} as builder
 COPY --from=mvn_builder /opt/keycloak/target/*.jar /opt/keycloak/providers/
