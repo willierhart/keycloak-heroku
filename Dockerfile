@@ -22,7 +22,7 @@ ENV KC_PROXY_ADDRESS_FORWARDING=true
 
 USER 1000
 
-RUN /opt/keycloak/bin/kc.sh build
+RUN /opt/keycloak/bin/kc.sh build --verbose
 
 FROM quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
